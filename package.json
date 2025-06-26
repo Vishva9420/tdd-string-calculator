@@ -4,17 +4,24 @@
   "description": "TDD Assessment – String Calculator Kata in Node.js using Jest",
   "main": "index.js",
   "scripts": {
-  "test": "jest",
-  "test:watch": "jest --watch",
-  "lint": "eslint src/ tests/",
-  "format": "prettier --write ."
-},
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "lint": "eslint src/ tests/",
+    "format": "prettier --write .",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "**/*.js": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "eslint": "^9.29.0",
-    "husky": "^9.1.7",
+    "husky": "^8.0.0",
     "jest": "^30.0.3",
     "lint-staged": "^16.1.2",
     "prettier": "^3.6.1"
