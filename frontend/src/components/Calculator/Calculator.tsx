@@ -11,7 +11,8 @@ const Calculator: React.FC = () => {
   const handleCalculate = async () => {
     try {
       setError(null);
-      const response = await calculateString(input);
+      const normalizedInput = input.replace(/\\n/g, '\n'); // 👈 Convert literal \n to actual newline
+      const response = await calculateString(normalizedInput);
       setResult(response.result);
     } catch (err: any) {
       setResult(null);
