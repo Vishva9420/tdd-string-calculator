@@ -25,4 +25,8 @@ describe('String Calculator', () => {
     expect(add('//;\n1;2')).toBe(3);
     expect(add('//#\n4#5#6')).toBe(15);
   });
+  test('throws exception for negative numbers with all in message', () => {
+    expect(() => add('1,-2,3')).toThrow('negatives not allowed: -2');
+    expect(() => add('-1,-5')).toThrow('negatives not allowed: -1, -5');
+  });  
 });
