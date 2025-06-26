@@ -9,7 +9,8 @@
     "lint": "eslint src/ tests/",
     "format": "prettier --write .",
     "prepare": "cd .. && husky install",
-    "postinstall": "cd .. && husky install"
+    "postinstall": "cd .. && husky install",
+    "start": "node src/app.js"
   },
   "lint-staged": {
     "**/*.js": [
@@ -26,5 +27,9 @@
     "jest": "^30.0.3",
     "lint-staged": "^16.1.2",
     "prettier": "^3.6.1"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0"
   }
 }
