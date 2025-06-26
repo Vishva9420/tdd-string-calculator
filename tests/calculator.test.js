@@ -35,5 +35,5 @@ describe('String Calculator', () => {
   });
   test('supports delimiters of any length like [***]', () => {
     expect(add('//[***]\n1***2***3')).toBe(6);
-  });  
+  })
 });
