@@ -1,39 +1,40 @@
-function escapeRegex(str) {
-    return str.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
+function extractDelimiters(header) {
+    const delimiterMatches = header.match(/\[(.*?)\]/g);
+    if (!delimiterMatches) return [header]; // fallback: single char
+    return delimiterMatches.map(d => d.slice(1, -1));
+  }
+  
+  function escapeRegExp(str) {
+    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   }
   
   function add(numbers) {
     if (numbers === '') return 0;
   
     let delimiters = [',', '\n'];
-    let numberString = numbers;
+    let numString = numbers;
   
     if (numbers.startsWith('//')) {
-      const delimiterLineEnd = numbers.indexOf('\n');
-      const delimiterSection = numbers.substring(2, delimiterLineEnd);
+      const parts = numbers.split('\n');
+      const delimiterLine = parts[0].substring(2);
+      numString = parts.slice(1).join('\n');
   
-      if (delimiterSection.startsWith('[')) {
-        // Handle multiple delimiters like [***][%%]
-        const delimiterMatches = delimiterSection.match(/\[([^\]]+)\]/g);
-        delimiters = delimiterMatches.map((match) =>
-          escapeRegex(match.slice(1, -1))
-        );
+      if (delimiterLine.startsWith('[')) {
+        delimiters = [...delimiters, ...extractDelimiters(delimiterLine)];
       } else {
-        delimiters = [escapeRegex(delimiterSection)];
+        delimiters = [...delimiters, delimiterLine];
       }
-  
-      numberString = numbers.substring(delimiterLineEnd + 1);
     }
   
-    const splitRegex = new RegExp(delimiters.join('|'));
-    const parts = numberString.split(splitRegex).map(Number);
+    const delimiterRegex = new RegExp(delimiters.map(escapeRegExp).join('|'));
+    const nums = numString.split(delimiterRegex).map(Number);
   
-    const negatives = parts.filter((n) => n < 0);
+    const negatives = nums.filter(n => n < 0);
     if (negatives.length > 0) {
       throw new Error(`negative numbers not allowed: ${negatives.join(', ')}`);
     }
   
-    return parts.filter((n) => n <= 1000).reduce((acc, curr) => acc + curr, 0);
+    return nums.filter(n => n <= 1000).reduce((acc, curr) => acc + curr, 0);
   }
   
   module.exports = { add };
