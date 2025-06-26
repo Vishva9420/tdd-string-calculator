@@ -26,7 +26,11 @@ describe('String Calculator', () => {
     expect(add('//#\n4#5#6')).toBe(15);
   });
   test('throws exception for negative numbers with all in message', () => {
-    expect(() => add('1,-2,3')).toThrow('negatives not allowed: -2');
-    expect(() => add('-1,-5')).toThrow('negatives not allowed: -1, -5');
+    expect(() => add('1,-2,3')).toThrow('negative numbers not allowed: -2');
+    expect(() => add('-1,-5')).toThrow('negative numbers not allowed: -1, -5');
   });  
+  test('ignores numbers greater than 1000', () => {
+    expect(add('2,1001')).toBe(2);
+    expect(add('1000,1')).toBe(1001);
+  });
 });

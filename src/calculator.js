@@ -6,19 +6,21 @@ function add(numbers) {
   
     if (numbers.startsWith('//')) {
       const delimiterLineEnd = numbers.indexOf('\n');
-      const delimiterChar = numbers.substring(2, delimiterLineEnd);
-      delimiter = new RegExp(delimiterChar);
+      const delimiterPattern = numbers.substring(2, delimiterLineEnd);
+      delimiter = new RegExp(delimiterPattern);
       numberString = numbers.substring(delimiterLineEnd + 1);
     }
   
     const parts = numberString.split(delimiter).map(Number);
     const negatives = parts.filter((n) => n < 0);
-  
     if (negatives.length > 0) {
-      throw new Error(`negatives not allowed: ${negatives.join(', ')}`);
+      throw new Error(`negative numbers not allowed: ${negatives.join(', ')}`);
     }
   
-    const sum = parts.reduce((acc, curr) => acc + curr, 0);
+    const sum = parts
+      .filter((n) => n <= 1000)
+      .reduce((acc, curr) => acc + curr, 0);
+  
     return sum;
   }
   
