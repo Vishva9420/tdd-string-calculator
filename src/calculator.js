@@ -6,8 +6,16 @@ function add(numbers) {
   
     if (numbers.startsWith('//')) {
       const delimiterLineEnd = numbers.indexOf('\n');
-      const delimiterPattern = numbers.substring(2, delimiterLineEnd);
-      delimiter = new RegExp(delimiterPattern);
+      const delimiterSection = numbers.substring(2, delimiterLineEnd);
+  
+      if (delimiterSection.startsWith('[') && delimiterSection.endsWith(']')) {
+        // Support custom delimiters like [***]
+        const delimiterText = delimiterSection.slice(1, -1);
+        delimiter = new RegExp(delimiterText.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&'));
+      } else {
+        delimiter = new RegExp(delimiterSection);
+      }
+  
       numberString = numbers.substring(delimiterLineEnd + 1);
     }
   
