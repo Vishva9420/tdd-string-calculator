@@ -29,6 +29,7 @@
     "prettier": "^3.6.1"
   },
   "dependencies": {
+    "aws-serverless-express": "^3.4.0",
     "cors": "^2.8.5",
     "express": "^5.1.0"
   }
