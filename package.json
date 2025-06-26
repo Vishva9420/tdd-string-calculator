@@ -3,16 +3,12 @@
   "version": "1.0.0",
   "description": "TDD Assessment – String Calculator Kata in Node.js using Jest",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "eslint src/ tests/",
     "format": "prettier --write .",
     "prepare": "husky install"
-  },
-  "jest": {
-    "testEnvironment": "node"
   },
   "lint-staged": {
     "**/*.js": [
@@ -21,7 +17,7 @@
     ]
   },
   "keywords": [],
-  "author": "Vishva Thakkar",
+  "author": "",
   "license": "ISC",
   "devDependencies": {
     "eslint": "^9.29.0",
