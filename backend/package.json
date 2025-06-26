@@ -8,7 +8,8 @@
     "test:watch": "jest --watch",
     "lint": "eslint src/ tests/",
     "format": "prettier --write .",
-    "prepare": "husky install"
+    "prepare": "cd .. && husky install",
+    "postinstall": "cd .. && husky install"
   },
   "lint-staged": {
     "**/*.js": [
