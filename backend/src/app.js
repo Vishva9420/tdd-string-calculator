@@ -1,25 +1,23 @@
-// backend/src/app.js
 const express = require('express');
-const { add } = require('./calculator');
 const cors = require('cors');
+const bodyParser = require('body-parser');
+const { add } = require('./calculator');
 
 const app = express();
-const port = 3001;
-
 app.use(cors());
-app.use(express.json());
+app.use(bodyParser.json());
 
-app.post('/api/calculate', (req, res) => {
-  const { input } = req.body;
+//API Gateway base path
+app.use('/prod', express.Router()
+  .post('/api/calculate', (req, res) => {
+    try {
+      const { input } = req.body;
+      const result = add(input);
+      res.json({ result });
+    } catch (err) {
+      res.status(400).json({ error: err.message });
+    }
+  })
+);
 
-  try {
-    const result = add(input);
-    res.json({ result });
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
-});
-
-app.listen(port, () => {
-  console.log(`🧮 String Calculator API running at http://localhost:${port}`);
-});
+module.exports = app;

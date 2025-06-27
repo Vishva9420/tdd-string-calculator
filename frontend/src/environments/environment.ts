@@ -1,7 +1,7 @@
 // src/environments/environment.ts
 
 export const environment = {
-    apiUrl: 'http://localhost:3001/api',
+    apiUrl: 'https://biphetsfp5.execute-api.us-east-2.amazonaws.com/prod/api',
     // Add other environment variables here
   };
   
